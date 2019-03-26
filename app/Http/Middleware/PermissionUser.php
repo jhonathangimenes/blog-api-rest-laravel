@@ -4,10 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\User;
-use App\Post;
-use Auth;
 
-class Permission
+class PermissionUser
 {
     /**
      * Handle an incoming request.
@@ -33,7 +31,7 @@ class Permission
         }
 
         foreach($user->permission as $permission) {
-            if($permission->desc == 'admin' | $permission->desc == 'post-manager') {
+            if($permission->desc == 'admin' | $permission->desc == 'user-manager') {
                 return $next($request);
             }else {
                 return response()->json([
@@ -41,6 +39,5 @@ class Permission
                 ],401);
             }
         }
-        //return $next($request);
     }
 }

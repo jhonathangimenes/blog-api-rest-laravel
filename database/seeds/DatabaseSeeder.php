@@ -35,8 +35,5 @@ class DatabaseSeeder extends Seeder
         Permission::create([
             'desc' => 'post-manager'
         ]);
-        Permission::create([
-            'desc' => 'post'
-        ]);
     }
 }

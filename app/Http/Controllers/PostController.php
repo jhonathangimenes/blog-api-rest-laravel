@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\User;
 use App\PostChanges;
+use App\Controller\PermissionUserController;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Validator;
@@ -13,11 +14,13 @@ class PostController extends Controller
 {
     private $post;
     private $postChanges;
+    private $permissionUserController;
 
-    public function __construct(Post $post, PostChanges $postChanges)
+    public function __construct(Post $post, PostChanges $postChanges, PermissionUserController $permissionUserController)
     {
         $this->post = $post;
         $this->postChanges = $postChanges;
+        $this->$permissionUserController = $permissionUserController;
     }
 
     public function index()
@@ -43,12 +46,6 @@ class PostController extends Controller
     {
         $user = User::find($request->user_id);
 
-        if(!$user) {
-            return response()->json([
-                'message' => 'User does not exist'
-            ], 404);
-        }
-
         $validator = Validator::make($request->all(), $this->post->rulesStore); 
         
         if($validator->fails()) {
@@ -62,7 +59,7 @@ class PostController extends Controller
         $post->fill($request->all());
         $post->save();
 
-        $this->postChangeStore($post->user_id, $post->id);
+        $this->$permissionUserController->store($post->user_id, $post->id);
 
         return response()->json($post);
     }
@@ -70,12 +67,6 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($request->user_id);
-
-        if(!$user) {
-            return response()->json([
-                'message' => 'User does not exist'
-            ], 404);
-        }
 
         $post = Post::find($id);
 
@@ -101,7 +92,7 @@ class PostController extends Controller
         $post->user_id = $postUserId;
         $post->save();
 
-        $this->postChangeStore($request->user_id, $id);
+        $this->$permissionUserController->store($post->user_id, $post->id);
 
         return response()->json($post);
     }
@@ -117,13 +108,5 @@ class PostController extends Controller
         }
 
         return response()->json($post->delete(), 204);
-    }
-
-    public function postChangeStore($user_id, $post_id)
-    {
-        $postChanges = new PostChanges();
-        $postChanges->user_id = $user_id;
-        $postChanges->post_id = $post_id;
-        $postChanges->save();
     }
 }
