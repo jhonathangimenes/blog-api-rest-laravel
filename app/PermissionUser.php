@@ -13,6 +13,6 @@ class PermissionUser extends Model
     protected $table = 'permission_user';
 
     public $rules = [
-        'permission_id' => 'required|numeric'
+        'permission_id' => 'sometimes|required|numeric'
     ];
 }

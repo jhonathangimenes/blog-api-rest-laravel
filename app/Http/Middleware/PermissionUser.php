@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\User;
+use Auth;
 
 class PermissionUser
 {
@@ -16,7 +17,7 @@ class PermissionUser
      */
     public function handle($request, Closure $next)
     {
-        $user = User::find($request->user_id);
+        $user = User::find(Auth::user()->id);
 
         if(!$user) {
             return response()->json([

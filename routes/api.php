@@ -22,7 +22,8 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::patch('/post/{id}', 'PostController@update')->middleware(['permissionPost']);
     Route::delete('/post/{id}', 'PostController@destroy')->middleware(['permissionPost']);
 
+    Route::post('/permissionUser', 'PermissionUserController@store')->middleware(['permissionUser']);
     Route::patch('/permissionUser/{id}', 'PermissionUserController@update')->middleware(['permissionUser']);
-    Route::delete('/permissionUser/{id}', 'PermissionUserController@destroy')->middleware(['permissionUser']);;
+    Route::delete('/permissionUser/{id}', 'PermissionUserController@destroy')->middleware(['permissionUser']);
 });
 

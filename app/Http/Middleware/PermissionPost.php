@@ -18,7 +18,7 @@ class PermissionPost
      */
     public function handle($request, Closure $next)
     {
-        $user = User::find($request->user_id);
+        $user = User::find(Auth::user()->id);
 
         if(!$user) {
             return response()->json([

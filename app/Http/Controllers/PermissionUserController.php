@@ -7,12 +7,14 @@ use App\PermissionUser;
 
 class PermissionUserController extends Controller
 {
-    public function store($user_id, $post_id)
+    public function store(Request $request)
     {
-        $postChanges = new PostChanges();
-        $postChanges->user_id = $user_id;
-        $postChanges->post_id = $post_id;
-        $postChanges->save();
+        $permissionUser = new PermissionUser();
+        $permissionUser = $request->permission_id;
+        $permissionUser = $request->user_id;
+        $permissionUser->save();
+
+        return response()->json($permissionUser);
     }
 
     public function update(Request $request, $id)

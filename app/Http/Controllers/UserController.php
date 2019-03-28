@@ -62,10 +62,12 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        $permissionUser = new PermissionUser();
-        $permissionUser->user_id = $user->id;
-        $permissionUser->permission_id = $request->permission_id;
-        $permissionUser->save();
+        if(!empty($request->permission_id)){
+            $permissionUser = new PermissionUser();
+            $permissionUser->user_id = $user->id;
+            $permissionUser->permission_id = $request->permission_id;
+            $permissionUser->save();
+        }
 
         return response()->json($user, 201);
     }

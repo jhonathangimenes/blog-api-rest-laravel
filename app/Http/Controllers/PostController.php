@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\User;
 use App\PostChanges;
-use App\Controller\PermissionUserController;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Validator;
@@ -20,7 +19,6 @@ class PostController extends Controller
     {
         $this->post = $post;
         $this->postChanges = $postChanges;
-        $this->$permissionUserController = $permissionUserController;
     }
 
     public function index()
@@ -59,7 +57,7 @@ class PostController extends Controller
         $post->fill($request->all());
         $post->save();
 
-        $this->$permissionUserController->store($post->user_id, $post->id);
+        $this->postChangeS($post->id, $request->user_id);
 
         return response()->json($post);
     }
@@ -92,7 +90,7 @@ class PostController extends Controller
         $post->user_id = $postUserId;
         $post->save();
 
-        $this->$permissionUserController->store($post->user_id, $post->id);
+        $this->postChangeS($post->id, $request->user_id);
 
         return response()->json($post);
     }
@@ -108,5 +106,13 @@ class PostController extends Controller
         }
 
         return response()->json($post->delete(), 204);
+    }
+
+    public function postChangeS($post_id, $user_id)
+    {
+        $postChanges = new PostChanges();
+        $postChanges->post_id = $post_id;
+        $postChanges->user_id = $user_id;
+        $postChanges->save();
     }
 }
