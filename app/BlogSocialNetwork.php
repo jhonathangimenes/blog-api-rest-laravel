@@ -11,4 +11,9 @@ class BlogSocialNetwork extends Model
     ];
 
     protected $table = 'blog_social_networks';
+
+    public $rules= [
+        'url' => 'required|max:100',
+        'type_id' => 'sometimes|required'
+    ];
 }

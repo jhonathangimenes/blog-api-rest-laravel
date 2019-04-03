@@ -11,4 +11,10 @@ class BlogData extends Model
     ];
 
     protected $table = 'blog_data';
+
+    public $rules = [
+        'name' => 'required|max:100',
+        'img' => 'sometimes|required',
+        'desc' => 'required|max:100'
+    ];
 }

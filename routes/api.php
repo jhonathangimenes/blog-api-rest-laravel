@@ -8,9 +8,30 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('auth/login', 'AuthController@authenticate');
 
+
+
 Route::post('/user', 'UserController@store');
 
 Route::group(['middleware' => ['jwt.auth']], function () {
+    Route::get('/blog', 'BlogDataController@index');
+    Route::post('/blog', 'BlogDataController@store');
+    Route::patch('/blog/{id}', 'BlogDataController@update');
+
+    Route::get('/blog-addresses', 'BlogAddressesController@index');
+    Route::post('/blog-addresse', 'BlogAddressesController@store');
+    Route::patch('/blog-addresse/{id}', 'BlogAddressesController@update');
+    Route::delete('/blog-addresse/{id}', 'BlogAddressesController@destroy');
+
+    Route::get('/blog-phones', 'BlogPhoneController@index');
+    Route::post('/blog-phone', 'BlogPhoneController@store');
+    Route::patch('/blog-phone/{id}', 'BlogPhoneController@update');
+    Route::delete('/blog-phone/{id}', 'BlogPhoneController@destroy');
+
+    Route::get('/blog-social-networks', 'BlogSocialNetworkController@index');
+    Route::post('/blog-social-network', 'BlogSocialNetworkController@store');
+    Route::patch('/blog-social-network/{id}', 'BlogSocialNetworkController@update');
+    Route::delete('/blog-social-network/{id}', 'BlogSocialNetworkController@destroy');
+
     Route::get('/users', 'UserController@index');
     Route::get('/user/{id}', 'UserController@show');
     Route::patch('/user/{id}', 'UserController@update');
@@ -26,4 +47,3 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::patch('/permissionUser/{id}', 'PermissionUserController@update')->middleware(['permissionUser']);
     Route::delete('/permissionUser/{id}', 'PermissionUserController@destroy')->middleware(['permissionUser']);
 });
-

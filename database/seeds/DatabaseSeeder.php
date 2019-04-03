@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Permission;
+use App\TypeSocialNetwork;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,6 +35,10 @@ class DatabaseSeeder extends Seeder
         ]);
         Permission::create([
             'desc' => 'post-manager'
+        ]);
+
+        TypeSocialNetwork::create([
+            'desc' => 'facebook'
         ]);
     }
 }

@@ -11,4 +11,12 @@ class BlogAddresses extends Model
     ];
 
     protected $table = 'blog_addresses';
+
+    public $rules = [
+        'cep' => 'required|max:100',
+        'state' => 'required|max:100',
+        'city' => 'required|max:100',
+        'desc' => 'required|max:100',
+        'number' => 'required|max:100'
+    ];
 }

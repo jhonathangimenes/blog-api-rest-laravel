@@ -11,4 +11,8 @@ class BlogPhone extends Model
     ];
 
     protected $table = 'blog_phones';
+
+    public $rules = [
+        'desc' => 'required|max:100'
+    ];
 }
