@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
     protected $fillable = [
-        'like', 'post_id', 'comment_id', 'user_id' 
+        'like', 'post_id', 'user_id' 
     ];
 
     protected $table = 'likes';
 
     public $rules = [
         'like' => 'required|max:100',
+        'post_id' => 'required|max:100',
         'user_id' => 'required|max:100',
     ];
 

@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Dislike extends Model
 {
     protected $fillable = [
-        'dislike', 'post_id', 'comment_id', 'user_id' 
+        'dislike', 'post_id', 'user_id' 
     ];
 
-    protected $table = 'likes';
+    protected $table = 'dislikes';
 
     public $rules = [
         'dislike' => 'required|max:100',
-        'user_id' => 'required|max:100',
+        'post_id' => 'required|max:100',
+        'user_id' => 'required|max:100'
     ];
 
     public function user()

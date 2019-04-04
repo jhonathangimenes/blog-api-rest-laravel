@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Permission;
+use App\PermissionUser;
 use App\TypeSocialNetwork;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +21,7 @@ class DatabaseSeeder extends Seeder
 
     public function createAdmin()
     {
-        User::create([
+        $user = User::create([
             'first_name' => 'admin',
             'last_name' => 'administration', 
             'email' => 'admin@admin',
@@ -35,6 +36,12 @@ class DatabaseSeeder extends Seeder
         ]);
         Permission::create([
             'desc' => 'post-manager'
+        ]);
+
+        PermissionUser::create([
+            'user_id' => $user->id,
+            'permission_id' => '1'
+
         ]);
 
         TypeSocialNetwork::create([

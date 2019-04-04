@@ -18,8 +18,6 @@ class CreateDislikesTable extends Migration
             $table->string('dislike');
             $table->bigInteger('post_id')->unsigned();
             $table->foreign('post_id')->references('id')->on('posts');
-            $table->bigInteger('comments_id')->unsigned();
-            $table->foreign('comments_id')->references('id')->on('comments');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -8,8 +8,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('auth/login', 'AuthController@authenticate');
 
-
-
 Route::post('/user', 'UserController@store');
 
 Route::group(['middleware' => ['jwt.auth']], function () {
@@ -42,6 +40,18 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::get('/post/{id}', 'PostController@show');
     Route::patch('/post/{id}', 'PostController@update')->middleware(['permissionPost']);
     Route::delete('/post/{id}', 'PostController@destroy')->middleware(['permissionPost']);
+
+    Route::get('/comments', 'CommentsController@index');
+    Route::post('/comment', 'CommentsController@store');
+    Route::patch('/comment/{id}', 'CommentsController@update');
+
+    Route::get('/dislikes', 'DislikeController@index');
+    Route::post('/dislike', 'DislikeController@store');
+    Route::delete('/dislike/{id}', 'DislikeController@destroy');
+
+    Route::get('/likes', 'LikeController@index');
+    Route::post('/like', 'LikeController@store');
+    Route::delete('/like/{id}', 'LikeController@destroy');
 
     Route::post('/permissionUser', 'PermissionUserController@store')->middleware(['permissionUser']);
     Route::patch('/permissionUser/{id}', 'PermissionUserController@update')->middleware(['permissionUser']);
